@@ -4,7 +4,7 @@ import {FileComponent} from "./file/file.component";
 import {NavigationComponent} from "./folders/navigation.component";
 import {FileUploadComponent} from "./upload/upload.component";
 import {UsersListComponent} from "../management/users-list/users-list.component";
-import {FilesListComponent} from "./files-list/files-list.component";
+import {EditAccountComponent} from "../login/edit-account/edit-account.component";
 
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'fileUpload', component: FileUploadComponent },
   { path: 'usersList', component: UsersListComponent },
   { path: 'fileInfo/:id', component: FileComponent },
-  { path: 'files', component: FilesListComponent }
+  { path: 'editAccount', component: EditAccountComponent }
 ];
 
 @NgModule({

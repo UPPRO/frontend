@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./login/user-info/login.component";
 import {LoginService} from "./login/login.service";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
@@ -15,9 +15,7 @@ import {LoadService} from "./navigation/load.service";
 import {UsersService} from "./management/user.service";
 import {ManagementComponent} from "./management/management.component";
 import {UsersListComponent} from "./management/users-list/users-list.component";
-import {FileManagementService} from "./management/file-management.service";
-import {FilesListComponent} from "./navigation/files-list/files-list.component";
-import {FileListService} from "./navigation/files-list/file-list.service";
+import {EditAccountComponent} from "./login/edit-account/edit-account.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +26,7 @@ import {FileListService} from "./navigation/files-list/file-list.service";
     FileUploadComponent,
     ManagementComponent,
     UsersListComponent,
-    FilesListComponent
+    EditAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +34,7 @@ import {FileListService} from "./navigation/files-list/file-list.service";
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [LoginService, NavigationService, LoadService, UsersService, FileManagementService, FileListService],
+  providers: [LoginService, NavigationService, LoadService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
