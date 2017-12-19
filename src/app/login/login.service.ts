@@ -21,6 +21,7 @@ export class LoginService extends Subject<any> {
   private userLogout = this.SERVER + 'logoff';
   private userInfo = this.SERVER + 'register';
   private myUserInfo = this.SERVER + '/users/me';
+  private changePassword = this.SERVER + '/password/change';
 
   private token: string;
   private savedUserInfo: UserPublic;
@@ -32,19 +33,14 @@ export class LoginService extends Subject<any> {
     if (savedToken != null) {
       this.token = savedToken;
 
-      this.getMyUserInfo().subscribe(userInfo => {
-        console.log('Token is good');
-        this.savedUserInfo = userInfo;
-        this.onUserStateChanged();
+      this.getMyUserInfo().subscribe(next => {
+        this.next();
       }, err => {
-        console.log('Token is bad, logout');
         this.token = null;
-        this.savedUserInfo = null;
-        this.onUserStateChanged();
+        this.next();
       });
     }
   }
-
 
   getMyUserInfo(): Observable<UserPublic> {
     return new Observable<UserPublic>(observer => {
@@ -56,10 +52,6 @@ export class LoginService extends Subject<any> {
         observer.error(err);
       });
     });
-  }
-
-  getSavedUserInfo(): UserPublic {
-    return this.savedUserInfo;
   }
 
   isLogged(): boolean {
@@ -103,10 +95,14 @@ export class LoginService extends Subject<any> {
       this.http.get<Token>(this.userLogout, {headers: this.getAuthHeaders()}).subscribe(data => {
         Cookie.delete(this.tokenKey);
         this.token = null;
-        this.savedUserInfo = null;
         observer.next(data);
         this.onUserStateChanged();
       });
     });
+  }
+
+  edit(authData: AuthData): Observable<UserPublic> {
+    authData.login = this.savedUserInfo.login;
+    return this.http.post<UserPublic>(this.changePassword, authData, {headers: this.getAuthHeaders()});
   }
 }

@@ -3,7 +3,6 @@ import {UsersService} from "../management/user.service";
 import {UserPublic} from "../login/user-public";
 import {LoginService} from "../login/login.service";
 import {Router} from "@angular/router";
-import {FileListService} from "../navigation/files-list/file-list.service";
 
 @Component({
   selector: 'app-management',
@@ -13,7 +12,7 @@ import {FileListService} from "../navigation/files-list/file-list.service";
 export class ManagementComponent implements OnInit {
   userInfo: UserPublic;
 
-  constructor(private loginService: LoginService, private router: Router, private fileListService: FileListService) {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
@@ -37,21 +36,6 @@ export class ManagementComponent implements OnInit {
   }
 
   editAccount() {
-
-  }
-
-  showMyFiles() {
-    console.log(this.loginService.getSavedUserInfo());
-    this.fileListService.loadUserFiles(this.loginService.getSavedUserInfo().id);
-    this.router.navigate(['/files']);
-  }
-
-  showAllFiles() {
-    this.fileListService.loadAllFiles();
-    this.router.navigate(['/files']);
-  }
-
-  toStartPage() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/editAccount']);
   }
 }
